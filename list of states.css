@@ -1,0 +1,68 @@
+body
+{
+    display:grid;
+    background-color:black;
+    
+}
+.block-1
+{
+    display:inline-block;
+    position: relative;
+    height: 300px;
+    width:300px;
+    grid-gap: 10px;
+    
+
+}
+.state
+{
+    height: 300px;
+    width: 300px;
+    border-radius: 25px;
+
+}
+.state:hover
+{
+    transform: scale3d(1.2);
+    border-radius: 25px;
+    opacity: 0.4;
+}
+.text-overlay
+ {
+    font-size: 100px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    color:white;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+.block-1:hover .text-overlay
+{
+opacity: 1;
+}
+.content p
+{
+    font-size: 30px;
+    color:white;
+
+}
+.mapdiv{
+    width:75%;
+    margin-left: 15%;
+    
+}
+.mapdiv path{
+    stroke:#f4f1d2;
+    stroke-width: 1.5px;
+    transition:fill 0.3s;
+}
+.mapdiv :hover{
+    fill:aquamarine;
+
+
+
+}

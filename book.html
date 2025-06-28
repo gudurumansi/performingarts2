@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RangBhoomi | Book Tickets</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: radial-gradient(circle at center, #1a1a1a 40%, #000000 100%);
+      font-family: 'Segoe UI', sans-serif;
+      color: #fff;
+      overflow-x: hidden;
+    }
+    .carousel-container {
+      position: relative;
+      height: 100vh;
+      perspective: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      max-width: 1300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: visible;
+    }
+    .carousel {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 1.5s ease-in-out;
+    }
+    .show {
+      position: absolute;
+      width: 320px;
+      height: 520px;
+      background-color: #1f2937;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.08);
+      transition: transform 0.5s, filter 0.5s;
+      filter: blur(2px) brightness(0.6);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .highlight {
+      transform: translate(-50%, -50%) scale(1.2);
+      z-index: 10;
+      filter: none;
+    }
+    .tag {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background-color: #facc15;
+      color: #000;
+      font-weight: bold;
+      font-size: 0.75rem;
+      padding: 4px 8px;
+      border-radius: 4px;
+      z-index: 5;
+    }
+    .show img {
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+    }
+    .show-content {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      height: 100%;
+      justify-content: space-between;
+    }
+    .show-content h3 {
+      margin: 0;
+      font-size: 1.3rem;
+    }
+    .show-content p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: #d1d5db;
+    }
+    .show-content .price {
+      font-size: 1rem;
+      color: #facc15;
+    }
+    .book-button {
+      margin-top: 0.8rem;
+      padding: 0.5rem 1rem;
+      background-color: #facc15;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      align-self: start;
+    }
+    .controls {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      padding: 0 3rem;
+      box-sizing: border-box;
+      z-index: 20;
+    }
+    .controls button {
+      padding: 0.7rem 1.5rem;
+      background-color: #fbbf24;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="carousel-container">
+    <div class="carousel" id="carousel">
+      <div class="show">
+        <span class="tag">Coming Soon</span>
+        <img src="" alt="" />
+        <div class="show-content">
+          <h3>Kathakali Night</h3>
+          <p>Venue: Kerala Hall | Date: 30th June</p>
+          <p class="price">₹499</p>
+          <button class="book-button">Book Now</button>
+        </div>
+      </div>
+      <div class="show">
+        <span class="tag">Today</span>
+        <img src="" alt="" />
+        <div class="show-content">
+          <h3>Yakshagana Live</h3>
+          <p>Venue: Karnataka Auditorium | Date: 2nd July</p>
+          <p class="price">₹349</p>
+          <button class="book-button">Book Now</button>
+        </div>
+      </div>
+      <div class="show">
+        <span class="tag">Saturday</span>
+        <img src="" alt="" />
+        <div class="show-content">
+          <h3>Theyyam Spirit</h3>
+          <p>Venue: Thrissur Stage | Date: 10th July</p>
+          <p class="price">₹399</p>
+          <button class="book-button">Book Now</button>
+        </div>
+      </div>
+      <div class="show">
+        <span class="tag">Coming Soon</span>
+        <img src="" alt="" />
+        <div class="show-content">
+          <h3>Bhavai Theatre</h3>
+          <p>Venue: Gujarat Bhavan | Date: 12th July</p>
+          <p class="price">₹299</p>
+          <button class="book-button">Book Now</button>
+        </div>
+      </div>
+      <div class="show">
+        <span class="tag">Full Booked</span>
+        <img src="" alt="" />
+        <div class="show-content">
+          <h3>Koodiyattam Classic</h3>
+          <p>Venue: Cochin Heritage Stage | Date: 15th July</p>
+          <p class="price">₹559</p>
+          <button class="book-button">Book Now</button>
+        </div>
+      </div>
+      <div class="show">
+        <span class="tag">Today</span>
+        <img src="" alt="" />
+        <div class="show-content">
+          <h3>Nautanki Beats</h3>
+          <p>Venue: Lucknow Theatre | Date: 20th July</p>
+          <p class="price">₹379</p>
+          <button class="book-button">Book Now</button>
+        </div>
+      </div>
+    </div>
+    <div class="controls">
+      <button onclick="rotateCarousel(-1)">◀ Prev</button>
+      <button onclick="rotateCarousel(1)">Next ▶</button>
+    </div>
+  </div>
+
+  <script>
+    const carousel = document.getElementById('carousel');
+    const shows = Array.from(document.querySelectorAll('.show'));
+    const total = shows.length;
+    const rotationStep = 360 / total;
+    let currentAngle = 0;
+
+    function positionShows() {
+      for (let i = 0; i < total; i++) {
+        const rotateY = i * rotationStep;
+        shows[i].style.transform = `rotateY(${rotateY}deg) translateZ(600px)`;
+      }
+    }
+
+    function rotateCarousel(direction) {
+      currentAngle += direction * rotationStep;
+      carousel.style.transform = `rotateY(${-currentAngle}deg)`;
+      updateHighlight();
+    }
+
+    function updateHighlight() {
+      shows.forEach(show => show.classList.remove('highlight'));
+      const index = Math.round(((currentAngle % 360) / rotationStep)) % total;
+      const correctedIndex = (total + (-index % total)) % total;
+      shows[correctedIndex].classList.add('highlight');
+    }
+
+    positionShows();
+    updateHighlight();
+  </script>
+</body>
+</html>
