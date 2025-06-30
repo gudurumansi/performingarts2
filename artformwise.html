@@ -1,232 +1,211 @@
 <!DOCTYPE html>
-</html>
+<html lang="en">
 <head>
-    <link rel="stylesheet" href="list of states.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>State Artform Carousel</title>
+  <style>
+    body {
+      margin: 0;
+      background: #000;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      padding: 2rem;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
+    h1 {
+      font-size: 2rem;
+      color: #ffc107;
+      margin-bottom: 1rem;
+    }
+
+    p.intro {
+      color: #ccc;
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .carousel-container {
+      perspective: 1200px;
+      width: 100%;
+      max-width: 900px;
+      height: 400px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .fullcircle {
+      width: 100%;
+      height: 300px;
+      position: relative;
+      transform-style: preserve-3d;
+      transform: rotateY(0deg);
+      transition: transform 0.8s ease;
+    }
+
+    .fullcircle a {
+      position: absolute;
+      width: 100px;
+      height: 140px;
+      background-color: #1a1a1a;
+      border: 2px solid #ffc107;
+      box-shadow: 0 0 15px #ffc10755;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      overflow: hidden;
+      color: #fff;
+      text-decoration: none;
+      transition: transform 0.4s ease;
+    }
+
+    .fullcircle a:hover {
+      transform: scale(1.15);
+      box-shadow: 0 0 25px #ffc107aa;
+      z-index: 2;
+    }
+
+    .fullcircle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .state-label {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      font-size: 0.8rem;
+      padding: 2px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      text-align: center;
+    }
+
+    .fullcircle a:hover .state-label {
+      opacity: 1;
+    }
+
+    .controls {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .controls button {
+      padding: 0.5rem 1rem;
+      background: #ffc107;
+      color: #000;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  </style>
 </head>
-</body>
-<h1 style="text-align: center;font-size: 50px;
-    color:#ffc107;">Classification of Performing Arts </h1>
-    <div style="display: grid;
-    grid-template-columns:300px 300px 300px 300px ;
-    column-gap: 80px;
-    row-gap: 50px;
-    margin-left: 30px; ">
-    <div class="block-1">
-        <img onclick="redirectPage1()"class="state"alt=""src="https://th-i.thgim.com/public/news/national/andhra-pradesh/x13dlp/article29128160.ece/alternates/FREE_1200/19VJPAGEBURRAKATHA">
-        <div class="text-overlay">Burra Katha</div>
-    </div>
-    <div class="block-1">
-        <img onclick="redirectPage2()"class="state"alt=""src="https://tripexploretravel.files.wordpress.com/2021/01/yak-chaam-dance.jpg?w=640">
-        <div class="text-overlay">Yak Dance Drama</div>
-    </div>
-    <div class="block-1">
-        <img onclick="redirectPage3()"class="state"alt=""src="https://upload.wikimedia.org/wikipedia/commons/c/c2/BhaonaActing.jpg">
-        <div class="text-overlay">Bhaona</div>
-    </div>
-    <div class="block-1">
-        <img onclick="redirectPage4()"class="state"alt=""src="https://www.lifestylefun.net/wp-content/uploads/2022/06/folk-dance-of-bihar.jpg">
-        <div class="text-overlay">Bidesha Natya</div>
-    </div>
-    <div class="block-1">
-        <img onclick="redirectPage5()"class="state"alt=""src="https://upload.wikimedia.org/wikipedia/commons/0/06/Tijan_Bai_1.jpg">
-        <div class="text-overlay">Pandwani</div>
-    </div>
-    <div class="block-1">
-        <img onclick="redirectPage6()"class="state"alt=""src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Tiatr%2C_a_popular_Konkani_folk_theatre_from_from_Goa_17.jpg/300px-Tiatr%2C_a_popular_Konkani_folk_theatre_from_from_Goa_17.jpg">
-        <div class="text-overlay">Tiatr</div>
-    </div>
-    <div class="block-1">
-        <img onclick="redirectPage7()"class="state"alt=""src="https://upload.wikimedia.org/wikipedia/commons/9/90/Bhavai_Gujrat_%282%29.jpg">
-        <div class="text-overlay">Bhavai</div>
-    </div>
-    <div class="block-1">
-        <img onclick="redirectPage8()"class="state"alt=""src="https://upload.wikimedia.org/wikipedia/en/3/36/Swang_%27Raja_Vikramaditya%27_in_Mandi_House_SRC_New_Delhi.jpg">
-        <div class="text-overlay">Swang</div>
-    </div>
-    <div class="block-1">
-        <img onclick="redirectPage9()"class="state"alt=""src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Kinnauri_Nati_dance.jpg">
-        <div class="text-overlay">Kinnauri nati</div>
-    </div>
-    <div class="block-1">
-        <img onclick="redirectPage10()"class="state"alt=""src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Chhau_Nritya_%281%29.jpg/1200px-Chhau_Nritya_%281%29.jpg">
-        <div class="text-overlay">Chhau</div>
-    </div>
-    <div class="block-1">
-        <img onclick="redirectPage11()"class="state"alt=""src="https://karnatakatourism.org/wp-content/uploads/2020/05/Yakshagana-2.jpg">
-        <div class="text-overlay">Yakshagana</div>
-    </div>
-    <div class="block-1">
-        <img onclick="redirectPage12()"class="state"alt="" src="https://mapacademy.io/wp-content/uploads/2023/04/bhand-pather-1m.jpg">
-        <div class="text-overlay">Bhand Pather</div>
-    </div>
-    <div class="block-1">
-        <img onclick="redirectPage13()"class="state"alt=""src="https://virali.files.wordpress.com/2008/07/ktt-thorana.jpg">
-        <div class="text-overlay">Kootiyattam</div>
-    </div>
-    <div class="block-1">
-        <img onclick="redirectPage14()"class="state"alt=""src="https://static.toiimg.com/thumb/msid-71842783,width-1280,height-720,resizemode-4/71842783.jpg">
-        <div class="text-overlay">Maach</div>
-    </div>
-    <div class="block-1">
-        <img onclick="redirectPage15()"class="state"alt=""src="https://mapacademy.io/wp-content/uploads/2022/10/tamasha-3l.jpg">
-        <div class="text-overlay">Tamaasha</div>
-    </div>
-    <div class="block-1">
-        <img onclick="redirectPage16()"class="state"alt=""src="https://www.kumhei.com/images/2016/user/s/BGMpeHNqh2.jpg">
-        <div class="text-overlay">Shumang Khumhei</div>
-    </div>
-    <div class="block-1">
-        <img onclick="redirectPage17()"class="state"alt=""src="https://www.desicomments.com/wp-content/uploads/2017/05/Doregata-Dance-Festival-Celebrating.jpg">
-        <div class="text-overlay">Doregata</div>
-    </div>
-    <div class="block-1">
-        <img onclick="redirectPage18()"class="state"alt=""src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Mizoram_Bango_Nirtya_performed_at_the_44th_India_International_Film_Festival_of_India_%28IFFI-2013%29%2C_in_Panaji%2C_Goa_on_November_26%2C_2013.jpg/1200px-Mizoram_Bango_Nirtya_performed_at_the_44th_India_International_Film_Festival_of_India_%28IFFI-2013%29%2C_in_Panaji%2C_Goa_on_November_26%2C_2013.jpg">
-        <div class="text-overlay">Lem Cham</div>
-    </div>
-    <div class="block-1">
-        <img onclick="redirectPage19()"class="state"alt=""src="https://swaraanjalifinearts.files.wordpress.com/2014/01/nagaland-2.jpg">
-        <div class="text-overlay">Zeliang Theatre</div>
-    </div>
-    <div class="block-1">
-        <img onclick="redirectPage20()"class="state"alt=""src="https://www.odisha.plus/wp-content/uploads/2020/02/Odissi_group_performance-1024x683.jpg">
-        <div class="text-overlay">Suanga</div>
-    </div>
-    <div class="block-1">
-        <img onclick="redirectPage21()"class="state"alt=""src="https://qph.cf2.quoracdn.net/main-qimg-ab2544a645a5a476a8cee3082420da46-pjlq">
-        <div class="text-overlay">Naqal</div>
-    </div>
-    <div class="block-1">
-        <img onclick="redirectPage22()"class="state"alt=""src="https://new-img.patrika.com/upload/2018/03/26/01_11.jpg">
-        <div class="text-overlay">Rammat</div>
-    </div>
-    <div class="block-1">
-        <img onclick="redirectPage23()"class="state"alt=""src="https://upload.wikimedia.org/wikipedia/commons/a/a2/ChamDance.jpg">
-        <div class="text-overlay">Cham</div>
-    </div>
-    <div class="block-1">
-        <img onclick="redirectPage24()"class="state"alt=""src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Kovalan_%28cropped%29.jpg/800px-Kovalan_%28cropped%29.jpg">
-        <div class="text-overlay">Terukuttu</div>
-    </div>
-    <div class="block-1">
-        <img onclick="redirectPage25()"class="state"alt=""src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Oggu_Katha_-_Folk_Dance_Of_Telangana_-_Wikiconference_India_2023_-_Hyderabad_2023-04-28_8147.jpg/1365px-Oggu_Katha_-_Folk_Dance_Of_Telangana_-_Wikiconference_India_2023_-_Hyderabad_2023-04-28_8147.jpg">
-        <div class="text-overlay">Oggu Katha</div>
-    </div>
-    <div class="block-1">
-        <img onclick="redirectPage26()"class="state"alt=""src="https://thenortheasttoday.com/static/c1e/client/86477/migrated/6d509af9625a3fb58eee594d3b9e175c.jpg">
-        <div class="text-overlay">Hojagiri</div>
-    </div>
-    <div class="block-1">
-        <img onclick="redirectPage27()"class="state"alt=""src="https://ignca.gov.in/ICH/ich_photos/ich00030/images/Nautanki-6.jpg">
-        <div class="text-overlay">Nautanki</div>
-    </div>
-    <div class="block-1">
-        <img onclick="redirectPage28()"class="state"alt=""src="https://images.news18.com/ibnkhabar/uploads/2022/12/Ramman-Festival.jpg">
-        <div class="text-overlay">Ramman</div>
-    </div>
-    <div class="block-1">
-        <img onclick="redirectPage29()"class="state"alt=""src="https://www.financialexpress.com/wp-content/uploads/2021/03/yakshgana.jpg">
-        <div class="text-overlay">Jatra</div>
-    <a style="margin-left: 1400px;
-    font-size:30px;" href="gallery.html">Next</a>
-    <a style="margin-right: 1400px;
-    font-size: 30px;" href="intro.html">Previous</a>
-    </div>
-    <script>
-        function redirectPage1()
-        {
-            window.location.href="andhra pradesh.html";
-        }
-        function redirectPage2()
-        {
-            window.location.href="arunachal pradesh.html";
-        }
-        function redirectPage3()
-        {
-            window.location.href="assam.html";
-        }function redirectPage4()
-        {
-            window.location.href="bihar.html";
-        }function redirectPage5()
-        {
-            window.location.href="chattisgarh.html";
-        }function redirectPage6()
-        {
-            window.location.href="goa.html";
-        }function redirectPage7()
-        {
-            window.location.href="gujarat.html";
-        }function redirectPage8()
-        {
-            window.location.href="haryana.html";
-        }function redirectPage9()
-        {
-            window.location.href="himachal pradesh.html";
-        }function redirectPage10()
-        {
-            window.location.href="jharkhand.html";
-        }function redirectPage11()
-        {
-            window.location.href="karnataka.html";
-        }function redirectPage12()
-        {
-            window.location.href="kashmir.html";
-        }function redirectPage13()
-        {
-            window.location.href="kerala.html";
-        }function redirectPage14()
-        {
-            window.location.href="madhya pradesh.html";
-        }function redirectPage15()
-        {
-            window.location.href="maharashtra.html";
-        }function redirectPage16()
-        {
-            window.location.href="manipur.html";
-        }function redirectPage17()
-        {
-            window.location.href="meghalaya.html";
-        }function redirectPage18()
-        {
-            window.location.href="mizoram.html";
-        }function redirectPage19()
-        {
-            window.location.href="nagaland.html";
-        }function redirectPage20()
-        {
-            window.location.href="odisha.html";
-        }function redirectPage21()
-        {
-            window.location.href="punjab.html";
-        }function redirectPage22()
-        {
-            window.location.href="rajasthan.html";
-        }function redirectPage23()
-        {
-            window.location.href="sikkim.html";
-        }function redirectPage24()
-        {
-            window.location.href="tamil nadu.html";
-        }function redirectPage25()
-        {
-            window.location.href="telangana.html";
-        }function redirectPage26()
-        {
-            window.location.href="tripura.html";
-        }
-        function redirectPage27()
-        {
-            window.location.href="uttarakhand.html";
-        }
-        function redirectPage28()
-        {
-            window.location.href="uttar pradesh.html";
-        }
-         function redirectPage29()
-        {
-            window.location.href="west bengal.html";
-        }
-    </script>
+<body>
+  <h1>Interactive State-wise Artform Classification</h1>
+  <p class="intro">
+    We have classified the diverse performing arts of India by organizing them through a state-wise approach.
+    This allows users to visually explore regional cultures with an interactive carousel.
+    Each clickable icon represents a state and redirects to a detailed page highlighting its rich traditional artforms.
+  </p>
 
+  <div class="carousel-container">
+    <div class="fullcircle" id="carousel"></div>
+  </div>
+
+  <div class="controls">
+    <button onclick="rotateCarousel(-1)">⟵ Prev</button>
+    <button onclick="rotateCarousel(1)">Next ⟶</button>
+  </div>
+
+  <script>
+    const carousel = document.getElementById('carousel');
+    const states = [
+      { name: 'Andhra Pradesh', file: 'andhra.html', img: 'https://th-i.thgim.com/public/news/national/andhra-pradesh/x13dlp/article29128160.ece/alternates/FREE_1200/19VJPAGEBURRAKATHA' },
+      { name: 'Arunachal Pradesh', file: 'arunachal.html', img: 'https://tripexploretravel.files.wordpress.com/2021/01/yak-chaam-dance.jpg?w=640' },
+      { name: 'Assam', file: 'assam.html', img: 'https://upload.wikimedia.org/wikipedia/commons/c/c2/BhaonaActing.jpg' },
+      { name: 'Bihar', file: 'bihar.html', img: 'https://www.lifestylefun.net/wp-content/uploads/2022/06/folk-dance-of-bihar.jpg' },
+      { name: 'Chhattisgarh', file: 'chhattisgarh.html', img: 'https://upload.wikimedia.org/wikipedia/commons/0/06/Tijan_Bai_1.jpg' },
+      { name: 'Goa', file: 'goa.html', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Tiatr%2C_a_popular_Konkani_folk_theatre_from_from_Goa_17.jpg/300px-Tiatr%2C_a_popular_Konkani_folk_theatre_from_from_Goa_17.jpg' },
+      { name: 'Gujarat', file: 'gujarat.html', img: 'https://upload.wikimedia.org/wikipedia/commons/9/90/Bhavai_Gujrat_%282%29.jpg' },
+      { name: 'Haryana', file: 'haryana.html', img: 'https://upload.wikimedia.org/wikipedia/en/3/36/Swang_%27Raja_Vikramaditya%27_in_Mandi_House_SRC_New_Delhi.jpg' },
+      { name: 'Himachal Pradesh', file: 'himachal.html', img: 'https://upload.wikimedia.org/wikipedia/commons/0/0b/Kinnauri_Nati_dance.jpg' },
+      { name: 'Jharkhand', file: 'jharkhand.html', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Chhau_Nritya_%281%29.jpg/1200px-Chhau_Nritya_%281%29.jpg' },
+      { name: 'Karnataka', file: 'karnataka.html', img: 'https://karnatakatourism.org/wp-content/uploads/2020/05/Yakshagana-2.jpg' },
+      { name: 'Kerala', file: 'kerala.html', img: 'https://mapacademy.io/wp-content/uploads/2023/04/bhand-pather-1m.jpg' },
+      { name: 'Madhya Pradesh', file: 'madhya.html', img: 'https://virali.files.wordpress.com/2008/07/ktt-thorana.jpg' },
+      { name: 'Maharashtra', file: 'maharashtra.html', img: 'https://static.toiimg.com/thumb/msid-71842783,width-1280,height-720,resizemode-4/71842783.jpg' },
+      { name: 'Manipur', file: 'manipur.html', img: 'https://mapacademy.io/wp-content/uploads/2022/10/tamasha-3l.jpg' },
+      { name: 'Meghalaya', file: 'meghalaya.html', img: 'https://www.kumhei.com/images/2016/user/s/BGMpeHNqh2.jpg' },
+      { name: 'Mizoram', file: 'mizoram.html', img: 'https://www.desicomments.com/wp-content/uploads/2017/05/Doregata-Dance-Festival-Celebrating.jpg' },
+      { name: 'Nagaland', file: 'nagaland.html', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Mizoram_Bango_Nirtya_performed_at_the_44th_India_International_Film_Festival_of_India_%28IFFI-2013%29%2C_in_Panaji%2C_Goa_on_November_26%2C_2013.jpg/1200px-Mizoram_Bango_Nirtya_performed_at_the_44th_India_International_Film_Festival_of_India_%28IFFI-2013%29%2C_in_Panaji%2C_Goa_on_November_26%2C_2013.jpg' },
+      { name: 'Odisha', file: 'odisha.html', img: 'https://swaraanjalifinearts.files.wordpress.com/2014/01/nagaland-2.jpg' },
+      { name: 'Punjab', file: 'punjab.html', img: 'https://www.odisha.plus/wp-content/uploads/2020/02/Odissi_group_performance-1024x683.jpg' },
+      { name: 'Rajasthan', file: 'rajasthan.html', img: 'https://qph.cf2.quoracdn.net/main-qimg-ab2544a645a5a476a8cee3082420da46-pjlq' },
+      { name: 'Sikkim', file: 'sikkim.html', img: 'https://new-img.patrika.com/upload/2018/03/26/01_11.jpg' },
+      { name: 'Tamil Nadu', file: 'tamilnadu.html', img: 'https://upload.wikimedia.org/wikipedia/commons/a/a2/ChamDance.jpg' },
+      { name: 'Telangana', file: 'telangana.html', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Kovalan_%28cropped%29.jpg/800px-Kovalan_%28cropped%29.jpg' },
+      { name: 'Tripura', file: 'tripura.html', img: 'https://upload.wikimedia.org/wikipedia/commons/6/64/Hojagiri_dance.jpg' },
+      { name: 'Uttar Pradesh', file: 'uttarpradesh.html', img: 'https://i.pinimg.com/736x/48/99/2c/48992cda7aec4ba05697ef722be7542b--incredible-india-orchestra.jpg' },
+      { name: 'Uttarakhand', file: 'uttarakhand.html', img: 'https://www.euttarakhand.com/wp-content/uploads/2016/04/Ramman-Festival.jpg' },
+      { name: 'West Bengal', file: 'westbengal.html', img: 'https://images.news18.com/ibnkhabar/uploads/2022/12/Ramman-Festival.jpg' },
+      { name: 'Delhi', file: 'delhi.html', img: 'https://www.financialexpress.com/wp-content/uploads/2021/03/yakshgana.jpg' }
+    ];
+
+    const radius = 500;
+    let angle = 0;
+
+    states.forEach((state, i) => {
+      const card = document.createElement('a');
+      card.href = state.file;
+      const theta = (360 / states.length) * i;
+      card.style.transform = `rotateY(${theta}deg) translateZ(${radius}px)`;
+      card.innerHTML = `
+        <img src="${state.img}" alt="${state.name}" />
+        <div class="state-label">${state.name}</div>
+      `;
+      carousel.appendChild(card);
+    });
+
+    function rotateCarousel(dir) {
+      angle += dir * 360 / states.length;
+      carousel.style.transform = `rotateY(${angle}deg)`;
+    }
+
+    // Add mouse drag interaction for 3D effect
+    let startX;
+    let isDragging = false;
+
+    document.querySelector('.carousel-container').addEventListener('mousedown', (e) => {
+      isDragging = true;
+      startX = e.clientX;
+    });
+
+    window.addEventListener('mouseup', () => {
+      isDragging = false;
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      const dx = e.clientX - startX;
+      startX = e.clientX;
+      angle += dx * 0.2;
+      carousel.style.transform = `rotateY(${angle}deg)`;
+    });
+  </script>
 </body>
 </html>

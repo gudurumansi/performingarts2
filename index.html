@@ -459,20 +459,17 @@ padding:  10% 0;
   <nav>
     <a href="#" id="homeLink">Home</a>
     <div class="dropdown">
-  <a href="#" id="classificationLink">Classification ▾</a>
-  <div class="dropdown-content">
-    <a href="statewise.html">State-wise</a>
-    <a href="artformwise.html">Artform-wise</a>
-  </div>
+  <a href="#" id="classificationLink">Classification</a>
 </div>
     <div class="dropdown">
     <a href="#" id="bookLink">Book ▾</a>
      <div class="dropdown-content">
-    <a href="admin.html">Admin</a>
-    <a href="artist.html">Artist</a>
+    <a href="TheatreArts/frontend/admin-auth.html">Admin</a>
+    <a href="Theatrearts/frontend/artist-auth.html">Artist</a>
     <a href="user.html">User</a>
   </div>
 </div>
+<a href="community/index.html" id="communitylink">Community</a>
 <a href="#" id="crowdfundingLink">CrowdFunding</a>
     <a href="#" id="chatbotLink">Queries</a>
   </nav>
@@ -482,7 +479,7 @@ padding:  10% 0;
     <section class="hero">
         <h1>Discover the Vibrant <br>Theatre Arts of India</h1>
         <p>Immerse yourself in the captivating world of Indian theatre, where ancient traditions and modern innovation blend together beautifully.</p>
-        <button>Book Now</button>
+        <a href="user.html"><button>Book Now</button></a>
         <span>Witness the Magic</span>
     </section>
     <section>
@@ -684,7 +681,7 @@ padding:  10% 0;
         // JavaScript to handle navigation clicks
 document.getElementById("classificationLink").addEventListener("click", function (event) {
   event.preventDefault(); // Prevents the default anchor behavior
-  window.location.href = "statewise.html"; // Redirects to classification.html
+  window.location.href = "classification.html"; // Redirects to classification.html
 });
 
 // Optional: Add similar listeners for other links
@@ -706,6 +703,10 @@ document.getElementById("chatbotLink").addEventListener("click", function (event
 document.getElementById("crowdfundingLink").addEventListener("click", function (event) {
   event.preventDefault();
   window.location.href = "crowdfunding.html";
+});
+document.getElementById("communitylink").addEventListener("click", function (event) {
+  event.preventDefault();
+  window.location.href = "community/index.html";
 });
 
   

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Theatre Artist Dice</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: #000;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      overflow: hidden;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-size: 32px;
+      color: #ffc107;
+      margin-bottom: 10px;
+    }
+
+    p.intro {
+      width: 80%;
+      max-width: 800px;
+      text-align: center;
+      font-size: 18px;
+      margin-bottom: 50px;
+      color: #ccc;
+      line-height: 1.8;
+    }
+
+    .rating-label {
+      margin-bottom: 20px;
+      font-style: italic;
+      color: #ffc107;
+      font-size: 16px;
+    }
+
+    .dice-container {
+      width: 200px;
+      height: 200px;
+      perspective: 800px;
+    }
+
+    .dice {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transform: rotateX(0deg) rotateY(0deg);
+      transition: transform 0.5s ease;
+    }
+
+    .face {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      background: #111;
+      border: 2px solid #ffc107;
+      box-shadow: 0 0 30px #ffc107aa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .face img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      cursor: pointer;
+    }
+
+    .popup {
+      position: absolute;
+      background: #222;
+      border: 1px solid #ffc107;
+      padding: 20px;
+      border-radius: 8px;
+      color: #fff;
+      max-width: 300px;
+      display: none;
+      z-index: 10;
+    }
+
+    .popup h3 {
+      color: #ffc107;
+      margin-bottom: 10px;
+    }
+
+    /* 3D dice face positioning */
+    .front  { transform: rotateY(0deg) translateZ(100px); }
+    .back   { transform: rotateY(180deg) translateZ(100px); }
+    .right  { transform: rotateY(90deg) translateZ(100px); }
+    .left   { transform: rotateY(-90deg) translateZ(100px); }
+    .top    { transform: rotateX(90deg) translateZ(100px); }
+    .bottom { transform: rotateX(-90deg) translateZ(100px); }
+  </style>
+</head>
+<body>
+
+  <h1>Celebrating India's Theatre Legends</h1>
+  <p class="intro">
+    Theatre artists are the beating heart of live performance—using their talent to breathe life into stories, cultural narratives,
+    and emotional journeys. From age-old folk performances to modern theatre, these legends carry forward traditions, question norms,
+    and spark introspection through their craft. This interactive experience highlights iconic contributors who have shaped Indian
+    theatre with vision and brilliance. Each face of the cube introduces a notable artist whose influence has echoed across generations.
+  </p>
+
+  <div class="rating-label">Click on a side of the dice to rotate and learn about the artist.</div>
+
+  <!-- 3D Dice Container -->
+  <div class="dice-container" id="diceContainer">
+    <div class="dice" id="dice">
+      <!-- Dice face for Ebrahim Alkazi -->
+      <div class="face front" data-info="Ebrahim Alkazi was an iconic director and drama teacher who revolutionized Indian theatre with his work at the National School of Drama.">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbxpoEILEHo54s1PpYoJtmgyR551BCorCKcA&s" alt="Ebrahim Alkazi">
+      </div>
+      <!-- Dice face for Habib Tanvir -->
+      <div class="face back" data-info="Habib Tanvir is known for blending folk theatre and modern drama. His play 'Charandas Chor' is a classic.">
+        <img src="https://mcmscache.epapr.in/post_images/website_350/post_34496084/full.jpg" alt="Habib Tanvir">
+      </div>
+      <!-- Dice face for Girish Karnad -->
+      <div class="face left" data-info="Girish Karnad was a playwright, actor, and director known for his thought-provoking Kannada plays like 'Tughlaq'.">
+        <img src="https://www.sruti.com/backend/uploads/media/girish-karnad.jpg" alt="Girish Karnad">
+      </div>
+      <!-- Dice face for Usha Ganguly -->
+      <div class="face top" data-info="Usha Ganguly was a pioneer of Hindi theatre, known for her socially relevant productions and direction.">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTr6LICoFz6q08v-DLfbNZmIZ7tZyWARCy7jg&s" alt="Usha Ganguly">
+      </div>
+      <!-- Dice face for Zohra Sehgal -->
+      <div class="face right" data-info="Zohra Sehgal was a beloved actress and dancer known for her charisma and contributions to Indian theatre and cinema.">
+        <img src="https://im.rediff.com/movies/2014/jul/10live2.jpg?w=450&h=450" alt="Zohra Sehgal">
+      </div>
+      <!-- Dice face for Ratan Thiyam -->
+      <div class="face bottom" data-info="Ratan Thiyam is known for his powerful visual storytelling and innovative use of traditional Manipuri theatre techniques.">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRj7yCsFFTfA_dybQ5D4ZQDt54Q-15XF_kmgg&s" alt="Ratan Thiyam">
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden popup element shown when a face is clicked -->
+  <div class="popup" id="popup"></div>
+
+  <script>
+    const dice = document.getElementById("dice");
+    const popup = document.getElementById("popup");
+    let rotateX = 0;
+    let rotateY = 0;
+    let isDragging = false;
+    let lastX, lastY;
+
+    // Start tracking mouse drag to rotate the dice
+    const startDrag = (e) => {
+      isDragging = true;
+      lastX = e.clientX;
+      lastY = e.clientY;
+      popup.style.display = "none"; // hide popup while rotating
+    };
+
+    // While dragging, calculate rotation angles
+    const onDrag = (e) => {
+      if (!isDragging) return;
+      const deltaX = e.clientX - lastX;
+      const deltaY = e.clientY - lastY;
+      rotateY += deltaX * 0.5; // horizontal rotation
+      rotateX -= deltaY * 0.5; // vertical rotation
+      dice.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      lastX = e.clientX;
+      lastY = e.clientY;
+    };
+
+    // Stop rotation tracking
+    const stopDrag = () => {
+      isDragging = false;
+    };
+
+    // Add mouse event listeners
+    document.addEventListener("mousedown", startDrag);
+    document.addEventListener("mousemove", onDrag);
+    document.addEventListener("mouseup", stopDrag);
+
+    // Attach click event to each face to show artist info
+    document.querySelectorAll(".face").forEach(face => {
+      face.addEventListener("click", e => {
+        e.stopPropagation();
+        popup.style.display = "block";
+        popup.innerHTML = `<h3>${face.querySelector("img").alt}</h3><p>${face.getAttribute("data-info")}</p>`;
+        popup.style.top = `${e.clientY + 10}px`;
+        popup.style.left = `${e.clientX + 10}px`;
+      });
+    });
+
+    // Hide popup when clicking elsewhere
+    document.body.addEventListener("click", () => {
+      popup.style.display = "none";
+    });
+  </script>
+
+</body>
+</html>

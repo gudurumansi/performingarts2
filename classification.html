@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #111827;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    .intro {
+      max-width: 800px;
+      margin-bottom: 2rem;
+      text-align: center;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #ffffff;
+    }
+
+    h1 {
+      color: #ffc107;
+      margin-bottom: 1rem;
+    }
+
+    .dashboard-container {
+      display: grid;
+      grid-template-columns: repeat(2, 300px);
+      grid-gap: 2rem;
+    }
+
+    .dashboard-card {
+      background-color: #1f2937;
+      border: 2px solid #ffc107;
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 0 15px rgba(255, 193, 7, 0.3);
+    }
+
+    .dashboard-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(255, 193, 7, 0.6);
+    }
+
+    .dashboard-card h2 {
+      margin: 0.5rem 0;
+      color: #ffc107;
+    }
+
+    .dashboard-card p {
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    .dashboard-card img {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Artform Classification Dashboard</h1>
+  <div class="intro">
+    Indian theatre is a blend of traditional, cultural, and regional art forms. To make exploration easier, we have classified these into broad sections that showcase the diversity of theatre across India.
+  </div>
+
+  <div class="dashboard-container">
+    <div class="dashboard-card" onclick="location.href='statewise.html'">
+      <img src="https://cdn-icons-png.flaticon.com/512/684/684908.png" alt="Map Icon">
+      <h2>State-wise Classification</h2>
+      <p>Explore theatre arts across India using an interactive map interface.</p>
+    </div>
+
+    <div class="dashboard-card" onclick="location.href='artformwise.html'">
+      <img src="https://cdn-icons-png.flaticon.com/512/3184/3184726.png" alt="Artform Icon">
+      <h2>Artform-wise Classification</h2>
+      <p>View and compare various classical and folk theatre styles by region.</p>
+    </div>
+
+    <div class="dashboard-card" onclick="location.href='dicerotating.html'">
+      <img src="https://cdn-icons-png.flaticon.com/512/2920/2920069.png" alt="Artist Icon">
+      <h2>Popular Artists</h2>
+      <p>Discover renowned theatre performers and their contributions to Indian drama.</p>
+    </div>
+
+    <div class="dashboard-card" onclick="location.href='chatbot.html'">
+      <img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png" alt="AI Icon">
+      <h2>AI Assistant</h2>
+      <p>Interact with our AI to learn more about theatre forms and upcoming shows.</p>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yak Chham - Himalayan Dance Drama</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #0a0a0a;
+      color: #ffffff;
+      scroll-behavior: smooth;
+    }
+
+    header {
+      background: linear-gradient(to right, #1a1a1a, #0d0d0d);
+      padding: 80px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 3.5rem;
+      color: #ffc107;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      color: #ccc;
+      max-width: 700px;
+      margin: 20px auto 0;
+    }
+
+    .flashcard-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  padding: 60px 40px;
+  justify-items: center;
+}
+
+
+    .flashcard {
+      background-color: #1a1a1a;
+      width: 300px;
+      height: 380px;
+      perspective: 1000px;
+    }
+
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transform-style: preserve-3d;
+      transition: transform 0.8s ease;
+      box-shadow: 0 0 25px rgba(255, 193, 7, 0.1), 0 0 60px rgba(255, 193, 7, 0.05);
+    }
+
+    .flashcard:hover .card-inner {
+      transform: rotateY(180deg);
+      box-shadow: 0 0 30px rgba(255, 193, 7, 0.6), 0 0 80px rgba(255, 193, 7, 0.4);
+    }
+
+    .card-front,
+    .card-back {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 15px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .card-front {
+      background-color: #222;
+      color: #ffc107;
+      position: relative;
+    }
+
+    .card-front img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+    }
+
+    .card-front .label {
+      z-index: 2;
+      background-color: rgba(0, 0, 0, 0.6);
+      width: 100%;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .card-back {
+      background-color: #333;
+      color: #fff;
+      transform: rotateY(180deg);
+      padding: 20px;
+      font-size: 0.95rem;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header Section -->
+  <header>
+    <h1>Yak Dance Drama</h1>
+    <p class="intro-paragraph">
+      Yak Chham, also known as Yak Dance or Yak Cham, is a traditional masked dance performed in the Himalayan region, particularly associated with Tibetan Buddhist culture. The dance is a form of ritualistic performance that is often part of religious ceremonies, festivals, and celebrations. Yaks hold significant cultural and economic importance in the Himalayan regions. They are often featured in art, folklore, and rituals. It's possible that local performances or cultural events may incorporate yak-related themes, celebrating the role of yaks in the daily life of the communities.
+    </p>
+  </header>
+
+  <!-- Flashcards Section -->
+  <div class="flashcard-container">
+
+    <!-- Card 1: Origin -->
+    <div class="flashcard">
+      <div class="card-inner">
+        <div class="card-front">
+          <img src="https://c8.alamy.com/comp/B30M34/yak-dancer-at-a-dalai-lama-teaching-in-2007-sponsored-by-kumbum-chamtse-B30M34.jpg" alt="Origin" />
+          <div class="label">Origin</div>
+        </div>
+        <div class="card-back">
+          <p>Yak Chham is deeply rooted in Tibetan Buddhist traditions and is often performed in monasteries during religious festivals and events. The dance is a way to convey religious teachings, stories, and philosophical concepts through symbolic movements, masks, and costumes.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2: Themes -->
+    <div class="flashcard">
+      <div class="card-inner">
+        <div class="card-front">
+          <img src="https://c8.alamy.com/comp/2P4FMXJ/traditional-tibetan-dance-performed-by-a-folkloric-group-kathmandu-nepal-2P4FMXJ.jpg" alt="Themes" />
+          <div class="label">Themes</div>
+        </div>
+        <div class="card-back">
+          <p>Stories from the Ramayana and Mahabharata emphasize good vs evil, courage, and devotion.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3: Performance -->
+    <div class="flashcard">
+      <div class="card-inner">
+        <div class="card-front">
+          <img src="https://arunachal24.in/wp-content/uploads/2022/11/yak-dance-.jpg.webp" alt="Performance" />
+          <div class="label">Performance</div>
+        </div>
+        <div class="card-back">
+          <p>Overnight temple performances feature stylized gestures, navarasas, chants, and percussions.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4: Instruments -->
+    <div class="flashcard">
+      <div class="card-inner">
+        <div class="card-front">
+          <img src="https://i.ytimg.com/vi/Rzdqk_VGFVI/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCkp1FhKS1ViM5z7kjDjO0nSZAhDw" alt="Instruments" />
+          <div class="label">Instruments</div>
+        </div>
+        <div class="card-back">
+          <p>Chenda and Maddalam provide the rhythm and energy that fuel the theatrical expression.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 5: Gender Roles -->
+    <div class="flashcard">
+      <div class="card-inner">
+        <div class="card-front">
+          <img src="https://www.overlandescape.com/storage/blogs/5994064a3d1b8103_website.jpg" alt="Gender Roles" />
+          <div class="label">Gender Roles</div>
+        </div>
+        <div class="card-back">
+          <p>Initially male-only roles, Yak Chham is now embraced by talented women performers too.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 6: Costume -->
+    <div class="flashcard">
+      <div class="card-inner">
+        <div class="card-front">
+          <img src="https://thumbs.dreamstime.com/b/tossakan-ravana-khon-mask-thai-traditional-dance-genre-drama-thailand-traditionally-performed-solely-100212029.jpg" alt="Costume" />
+          <div class="label">Costume</div>
+        </div>
+        <div class="card-back">
+          <p>Rich face paint and ornate attire represent character traits like heroism and divinity.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

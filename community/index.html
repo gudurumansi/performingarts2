@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theatre Artist Community</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Theatre Artist Community</h1>
+            <div class="user-controls">
+                <div id="user-info">
+                    <span id="username-display">Guest</span>
+                    <img id="user-avatar" src="default-avatar.png" alt="User Avatar">
+                </div>
+                <button id="login-btn">Login</button>
+                <button id="register-btn">Register</button>
+                <button id="logout-btn" style="display: none;">Logout</button>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <aside class="sidebar">
+                <div class="sidebar-section">
+                    <h3>Navigation</h3>
+                    <ul>
+                        <li class="active" data-tab="community-chat"><i class="fas fa-comments"></i> Community Chat</li>
+                        <li data-tab="event-board"><i class="fas fa-calendar-alt"></i> Events Board</li>
+                        <li data-tab="artist-directory"><i class="fas fa-users"></i> Artist Directory</li>
+                        <li data-tab="requirements"><i class="fas fa-bullhorn"></i> Casting Calls</li>
+                    </ul>
+                </div>
+                <div class="sidebar-section">
+                    <h3>Online Artists</h3>
+                    <ul id="online-users">
+                        <!-- Filled dynamically -->
+                    </ul>
+                </div>
+            </aside>
+
+            <main class="content-area">
+                <!-- Community Chat Tab -->
+                <div id="community-chat" class="tab-content active">
+                    <div class="chat-container">
+                        <div class="chat-header">
+                            <h2>Community Chat</h2>
+                            <button id="new-post-btn">New Post</button>
+                        </div>
+                        <div class="chat-messages" id="chat-messages">
+                            <!-- Messages will be loaded here -->
+                        </div>
+                        <div class="chat-input">
+                            <textarea id="message-input" placeholder="Type your message here..."></textarea>
+                            <div class="input-actions">
+                                <input type="file" id="image-upload" accept="image/*" style="display: none;">
+                                <button id="attach-image-btn"><i class="fas fa-image"></i> Attach Image</button>
+                                <button id="send-message-btn">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Events Board Tab -->
+                <div id="event-board" class="tab-content">
+                    <div class="events-container">
+                        <div class="events-header">
+                            <h2>Upcoming Events</h2>
+                            <button id="create-event-btn">Create Event</button>
+                        </div>
+                        <div class="events-list" id="events-list">
+                            <!-- Events will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Artist Directory Tab -->
+                <div id="artist-directory" class="tab-content">
+                    <div class="directory-container">
+                        <h2>Artist Directory</h2>
+                        <div class="search-artists">
+                            <input type="text" id="artist-search" placeholder="Search artists...">
+                            <button id="search-btn">Search</button>
+                        </div>
+                        <div class="artists-grid" id="artists-grid">
+                            <!-- Artists will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Requirements Tab -->
+                <div id="requirements" class="tab-content">
+                    <div class="requirements-container">
+                        <div class="requirements-header">
+                            <h2>Casting Calls & Requirements</h2>
+                            <button id="post-requirement-btn">Post a Requirement</button>
+                        </div>
+                        <div class="requirements-list" id="requirements-list">
+                            <!-- Requirements will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Login</h2>
+            <form id="login-form">
+                <input type="text" id="login-username" placeholder="Username" required>
+                <input type="password" id="login-password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="register-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Register</h2>
+            <form id="register-form">
+                <input type="text" id="reg-username" placeholder="Username" required>
+                <input type="email" id="reg-email" placeholder="Email" required>
+                <input type="password" id="reg-password" placeholder="Password" required>
+                <input type="password" id="reg-confirm-password" placeholder="Confirm Password" required>
+                <input type="text" id="reg-display-name" placeholder="Display Name">
+                <input type="text" id="reg-bio" placeholder="Short Bio">
+                <input type="file" id="reg-avatar" accept="image/*">
+                <button type="submit">Register</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="new-post-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Create New Post</h2>
+            <form id="new-post-form">
+                <select id="post-type">
+                    <option value="general">General Chat</option>
+                    <option value="question">Question</option>
+                    <option value="resource">Resource Share</option>
+                </select>
+                <textarea id="post-content" placeholder="What would you like to share?" required></textarea>
+                <input type="file" id="post-image" accept="image/*">
+                <button type="submit">Post</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="create-event-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Create New Event</h2>
+            <form id="create-event-form">
+                <input type="text" id="event-title" placeholder="Event Title" required>
+                <textarea id="event-description" placeholder="Event Description" required></textarea>
+                <input type="datetime-local" id="event-date" required>
+                <input type="text" id="event-location" placeholder="Location" required>
+                <input type="file" id="event-image" accept="image/*">
+                <button type="submit">Create Event</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="post-requirement-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Post a Casting Call</h2>
+            <form id="post-requirement-form">
+                <input type="text" id="requirement-title" placeholder="Title (e.g., 'Need Actor for Hamlet')" required>
+                <textarea id="requirement-description" placeholder="Detailed description of what you need..." required></textarea>
+                <input type="text" id="requirement-contact" placeholder="Contact Information" required>
+                <input type="text" id="requirement-deadline" placeholder="Application Deadline">
+                <button type="submit">Post Requirement</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

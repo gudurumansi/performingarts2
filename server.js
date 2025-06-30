@@ -1,128 +1,126 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const multer = require('multer');
-const path = require('path');
-require('dotenv').config();
+// server.js
+
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const bcrypt = require("bcrypt");
+const multer = require("multer");
+const path = require("path");
+
+const User = require("./models/User");
+const Booking = require("./models/Booking");
+const Show = require("./models/Show");
 
 const app = express();
-app.use(cors());
+const PORT = 5000;
+
+// Middleware
+app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type"]
+}));
 app.use(express.json());
-app.use('/uploads', express.static('uploads'));
+app.use("/uploads", express.static("uploads"));
 
 // MongoDB Connection
-mongoose.connect('mongodb://localhost:27017/crowdfundingDB', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+mongoose.connect("mongodb://localhost:27017/ticketing")
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => console.error("MongoDB connection error:", err));
+
+// Multer Config
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, "uploads/"),
+  filename: (req, file, cb) => {
+    const uniqueName = Date.now() + "-" + Math.round(Math.random() * 1e9) + path.extname(file.originalname);
+    cb(null, uniqueName);
+  }
 });
+const upload = multer({ storage });
+
+// Admin Schema
+const adminSchema = new mongoose.Schema({ name: String, email: { type: String, unique: true }, password: String });
+const Admin = mongoose.model("Admin", adminSchema);
+
+// Artist Schema
+const artistSchema = new mongoose.Schema({ name: String, email: { type: String, unique: true }, password: String });
+const Artist = mongoose.model("Artist", artistSchema);
+
+// Chat Schema
 const chatSchema = new mongoose.Schema({
   title: String,
-  createdAt: { type: Date, default: Date.now },
+  messages: [{ role: String, content: String }]
+});
+const Chat = mongoose.model("Chat", chatSchema);
+
+// Admin Routes
+app.post("/api/admin/signup", async (req, res) => { /* ... */ });
+app.post("/api/admin/login", async (req, res) => { /* ... */ });
+app.get("/api/admins", async (req, res) => { /* ... */ });
+
+// Artist Routes
+app.post("/api/artist/signup", async (req, res) => { /* ... */ });
+app.post("/api/artist/login", async (req, res) => { /* ... */ });
+app.get("/api/artists", async (req, res) => { /* ... */ });
+app.get("/api/artist/shows", async (req, res) => { /* ... */ });
+app.post("/api/artist/change-password", async (req, res) => { /* ... */ });
+
+// User Routes
+app.post("/api/user/signup", async (req, res) => { /* ... */ });
+app.post("/api/user/login", async (req, res) => { /* ... */ });
+app.get("/api/user/profile", async (req, res) => { /* ... */ });
+app.post("/api/user/change-password", async (req, res) => { /* ... */ });
+app.get("/api/users", async (req, res) => { const users = await User.find(); res.json(users); });
+
+// Show Routes
+app.post("/api/shows", upload.single("image"), async (req, res) => { /* ... */ });
+app.get("/api/shows", async (req, res) => { /* ... */ });
+app.put("/api/shows/:id", async (req, res) => { /* ... */ });
+app.delete("/api/shows/:id", async (req, res) => { /* ... */ });
+
+// Booking Routes
+const bookingRoutes = require("./routes/bookingRoutes");
+app.use("/api/bookings", bookingRoutes);
+
+// Chatbot Routes
+app.post("/api/chats", async (req, res) => {
+  const newChat = new Chat({ title: req.body.title, messages: [] });
+  await newChat.save();
+  res.status(201).json(newChat);
 });
 
-const messageSchema = new mongoose.Schema({
-  chatId: { type: mongoose.Schema.Types.ObjectId, ref: 'Chat' },
-  role: String, // 'user' or 'assistant'
-  content: String,
-  timestamp: { type: Date, default: Date.now },
+app.get("/api/chats", async (req, res) => {
+  const chats = await Chat.find();
+  res.json(chats);
 });
 
-const Chat = mongoose.model('Chat', chatSchema);
-const Message = mongoose.model('Message', messageSchema);
-
-// Get all chats
-app.get('/api/chats', async (req, res) => {
-  try {
-    const chats = await Chat.find().sort({ createdAt: -1 });
-    res.json(chats);
-  } catch (err) {
-    res.status(500).json({ error: 'Failed to fetch chats' });
-  }
+app.get("/api/chats/:id/messages", async (req, res) => {
+  const chat = await Chat.findById(req.params.id);
+  res.json(chat?.messages || []);
 });
 
-// Create a new chat
-app.post('/api/chats', async (req, res) => {
-  const { title } = req.body;
-  try {
-    const newChat = new Chat({ title });
-    await newChat.save();
-    res.status(201).json(newChat);
-  } catch (err) {
-    res.status(500).json({ error: 'Failed to create chat' });
-  }
+app.post("/api/chats/:id/messages", async (req, res) => {
+  const chat = await Chat.findById(req.params.id);
+  chat.messages.push(req.body);
+  await chat.save();
+  res.status(201).json({ success: true });
 });
 
-// Delete a chat
-app.delete('/api/chats/:chatId', async (req, res) => {
-  try {
-    const { chatId } = req.params;
-
-    // Delete the chat
-    await Chat.findByIdAndDelete(chatId);
-
-    // Also delete associated messages
-    await Message.deleteMany({ chatId });
-
-    res.json({ message: 'Chat deleted' });
-  } catch (err) {
-    console.error('Delete failed:', err);
-    res.status(500).json({ error: 'Delete failed' });
-  }
-});
-
-
-// Get messages for a chat
-app.get('/api/chats/:chatId/messages', async (req, res) => {
-  try {
-    const messages = await Message.find({ chatId: req.params.chatId });
-    res.json(messages);
-  } catch (err) {
-    res.status(500).json({ error: 'Failed to fetch messages' });
-  }
-});
-
-// Send message to chat
-app.post('/api/chats/:chatId/messages', async (req, res) => {
-  const { content, role } = req.body;
-  try {
-    const newMessage = new Message({
-      chatId: req.params.chatId,
-      content,
-      role,
-    });
-    await newMessage.save();
-    res.status(201).json(newMessage);
-  } catch (err) {
-    res.status(500).json({ error: 'Failed to send message' });
-  }
-});
-
-// At top of server.js
-const { GoogleGenerativeAI } = require('@google/generative-ai');
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-
-app.post('/api/chat/respond', async (req, res) => {
+app.post("/api/chat/respond", async (req, res) => {
   const { message, chatId } = req.body;
-
-  try {
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-    const result = await model.generateContent(message);
-    const responseText = result.response.text();
-
-    const aiMessage = new Message({
-      chatId,
-      role: 'assistant',
-      content: responseText,
-    });
-    await aiMessage.save();
-
-    res.json({ response: responseText });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Gemini response failed' });
-  }
+  const chat = await Chat.findById(chatId);
+  const aiResponse = `Echo: ${message}`;
+  chat.messages.push({ role: "assistant", content: aiResponse });
+  await chat.save();
+  res.json({ response: aiResponse });
 });
 
+// 404 Handler
+app.use((req, res) => {
+  res.status(404).json({ error: "Endpoint not found" });
+});
 
-// Start the server
-app.listen(5000, () => console.log("🚀 Server running at http://localhost:5000"));
+// Start Server
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});

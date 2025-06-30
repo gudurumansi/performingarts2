@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Chat Assistant</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #111827;
+      color: #f9fafb;
+      height: 100vh;
+      display: flex;
+      overflow: hidden;
+    }
+    .chatbot-container {
+      display: flex;
+      flex: 1;
+    }
+    .chat-sidebar {
+      background-color: #1f2937;
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+      transition: width 0.3s ease;
+    }
+    .btn-green {
+      background-color: #10b981;
+      border: none;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+    }
+    .chat-item {
+      background: #374151;
+      margin-bottom: 0.5rem;
+      padding: 0.5rem;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+    .chat-item.active {
+      background: #4b5563;
+    }
+    .btn-delete {
+      background: none;
+      border: none;
+      color: #f87171;
+      cursor: pointer;
+    }
+    .chat-header {
+      padding: 1rem;
+      background-color: #1f2937;
+      font-size: 1.2rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .chat-messages {
+      flex: 1;
+      padding: 1rem;
+      overflow-y: auto;
+      background-color: #111827;
+    }
+    .message-container {
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .message-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #374151;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+    .message-box {
+      background-color: #1f2937;
+      padding: 0.75rem;
+      border-radius: 8px;
+      max-width: 80%;
+      white-space: pre-wrap;
+    }
+    .user-message {
+      align-self: flex-end;
+      background-color: #2563eb;
+      color: white;
+    }
+    .chat-input-container {
+      padding: 1rem;
+      background-color: #1f2937;
+      display: flex;
+    }
+    .chat-input-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      width: 100%;
+    }
+    .chat-textarea {
+      flex: 1;
+      padding: 0.5rem;
+      border-radius: 8px;
+      resize: none;
+    }
+    .btn-send, .btn-attach {
+      background: #10b981;
+      border: none;
+      padding: 0.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      color: white;
+    }
+    .prompt-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .prompt-card {
+      background: #1f2937;
+      padding: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="chatbot-container">
+    <div class="chat-sidebar" style="width: 250px">
+      <button class="btn-green" onclick="createNewChat()">+ New Chat</button>
+      <div id="chat-list"></div>
+    </div>
+    <div style="flex: 1; display: flex; flex-direction: column">
+      <div class="chat-header">☰ AI Chat Assistant</div>
+      <div class="chat-messages" id="chat-messages"></div>
+      <div class="chat-input-container">
+        <div class="chat-input-wrapper">
+          <button onclick="document.getElementById('file-input').click()" class="btn-attach">📎</button>
+          <input type="file" id="file-input" style="display:none" />
+          <textarea id="chat-input" class="chat-textarea" placeholder="Message AI Chat Assistant..."></textarea>
+          <button class="btn-send" onclick="sendMessage()">➤</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = 'http://localhost:5000/api';
+    const chatList = document.getElementById('chat-list');
+    const chatMessages = document.getElementById('chat-messages');
+    const chatInput = document.getElementById('chat-input');
+
+    let chats = [];
+    let currentChatId = null;
+    let isTyping = false;
+
+    const scrollToBottom = () => {
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    };
+
+    const fetchChats = async () => {
+      const res = await fetch(`${API_BASE}/chats`);
+      chats = await res.json();
+      renderChatList();
+    };
+
+    const renderChatList = () => {
+      chatList.innerHTML = '';
+      chats.forEach(chat => {
+        const div = document.createElement('div');
+        div.className = `chat-item ${currentChatId === chat._id ? 'active' : ''}`;
+        div.innerHTML = `<div>${chat.title}</div><button class="btn-delete" onclick="deleteChat(event, '${chat._id}')">✖</button>`;
+        div.onclick = () => switchToChat(chat._id);
+        chatList.appendChild(div);
+      });
+    };
+
+    const switchToChat = async (id) => {
+      currentChatId = id;
+      const res = await fetch(`${API_BASE}/chats/${id}/messages`);
+      const msgs = await res.json();
+      renderMessages(msgs);
+    };
+
+    const renderMessages = (messages) => {
+      chatMessages.innerHTML = '';
+      messages.forEach(msg => {
+        const msgDiv = document.createElement('div');
+        msgDiv.className = `message-container ${msg.role}`;
+        msgDiv.innerHTML = `
+          <div class="message-avatar ${msg.role}">${msg.role === 'user' ? 'You' : 'AI'}</div>
+          <div class="message-box ${msg.role === 'user' ? 'user-message' : 'ai-message'}">${formatMessage(msg.content)}</div>
+        `;
+        chatMessages.appendChild(msgDiv);
+      });
+      scrollToBottom();
+    };
+
+    const formatMessage = (content) => {
+      return content.replace(/\n/g, '<br/>');
+    };
+
+    const createNewChat = async () => {
+      const res = await fetch(`${API_BASE}/chats`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title: 'New Chat' })
+      });
+      const newChat = await res.json();
+      chats.unshift(newChat);
+      currentChatId = newChat._id;
+      renderChatList();
+      chatMessages.innerHTML = '';
+    };
+
+    const sendMessage = async () => {
+      const content = chatInput.value.trim();
+      if (!content || isTyping) return;
+      chatInput.value = '';
+      isTyping = true;
+
+      if (!currentChatId) await createNewChat();
+
+      const msg = { role: 'user', content };
+      renderMessages([...document.querySelectorAll('.message-box')].map(m => ({ role: m.classList.contains('user-message') ? 'user' : 'assistant', content: m.innerHTML })).concat(msg));
+
+      await fetch(`${API_BASE}/chats/${currentChatId}/messages`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(msg)
+      });
+
+      const aiRes = await fetch(`${API_BASE}/chat/respond`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: content, chatId: currentChatId })
+      });
+      const aiMsg = await aiRes.json();
+      renderMessages([...document.querySelectorAll('.message-box')].map(m => ({ role: m.classList.contains('user-message') ? 'user' : 'assistant', content: m.innerHTML })).concat({ role: 'assistant', content: aiMsg.response }));
+      isTyping = false;
+    };
+
+    const deleteChat = async (e, id) => {
+      e.stopPropagation();
+      await fetch(`${API_BASE}/chats/${id}`, { method: 'DELETE' });
+      chats = chats.filter(c => c._id !== id);
+      currentChatId = null;
+      renderChatList();
+      chatMessages.innerHTML = '';
+    };
+
+    fetchChats();
+  </script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank You Letter</title>
+  <style>
+    :root {
+      --primary: #fff;
+      --bg-color: black;
+      --bg-envelope-color: transparent;
+      --envelope-tab: #ecdeb8;
+      --envelope-cover: #e6cfa7;
+      --shadow-color: rgba(0, 0, 0, 0.2);
+      --txt-color: #000;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background: var(--bg-color);
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      font-family: 'Brush Script MT', cursive;
+    }
+    .container {
+      height: 100vh;
+      display: grid;
+      place-items: center;
+      padding-top: 100px;
+    }
+    .envelope-wrapper {
+      position: relative;
+      width: 320px;
+      height: 245px;
+      perspective: 1000px;
+    }
+    .envelope {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: var(--bg-envelope-color);
+      box-shadow: 0 0 40px var(--shadow-color);
+      z-index: 2;
+    }
+    .envelope::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      z-index: 2;
+      border-top: 130px solid var(--envelope-tab);
+      border-right: 160px solid transparent;
+      border-left: 160px solid transparent;
+      transform-origin: top;
+      box-shadow: 0 -2px 0 black inset;
+      transition: transform 0.7s ease-in-out;
+    }
+    .envelope::after {
+      content: "";
+      position: absolute;
+      z-index: 2;
+      width: 0px;
+      height: 0px;
+      border-top: 130px solid transparent;
+      border-right: 160px solid var(--envelope-cover);
+      border-bottom: 100px solid var(--envelope-cover);
+      border-left: 160px solid var(--envelope-cover);
+      box-shadow: 0 0 0 2px black;
+    }
+    .letter {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 320px;
+      height: 245px;
+      background: var(--primary);
+      box-shadow: 0 0 5px var(--shadow-color);
+      transform: translateY(0);
+      transform-origin: bottom;
+      opacity: 0;
+      z-index: 3;
+      transition: transform 1.2s ease, opacity 1.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .letter .card {
+      width: 90%;
+      height: 90%;
+      background: var(--primary);
+      display: flex;
+      transform: rotateY(90deg);
+      transform-origin: left;
+      transition: transform 1s ease 1.2s;
+      box-shadow: inset 0 0 0 1px #ccc;
+    }
+    .letter .card .text {
+      width: 100%;
+      padding: 10px;
+      font-size: 14px;
+      color: var(--txt-color);
+      font-family: 'Brush Script MT', cursive;
+      text-align: center;
+    }
+    .letter .card .text strong {
+      font-size: 18px;
+    }
+    .envelope-wrapper.active .envelope::before {
+      transform: rotateX(180deg);
+    }
+    .envelope-wrapper.active .letter {
+      transform: translateY(-260px);
+      opacity: 1;
+    }
+    .envelope-wrapper.active .letter .card {
+      transform: rotateY(0deg);
+    }
+  </style>
+</head>
+<body>
+  <div style="position: absolute; top: 20px; width: 100%; text-align: center; font-size: 20px; color: white; font-family: 'Brush Script MT', cursive;">
+    <em>Here is a gift for your contribution 🎁</em>
+  </div>
+  <div class="container">
+    <div class="envelope-wrapper" onclick="this.classList.toggle('active')">
+      <div class="envelope"></div>
+      <div class="letter">
+        <div class="card">
+          <div class="text">
+            <strong>Dear Patron,</strong>
+            <p>
+              Your valuable contribution has played a crucial role in reviving and preserving the soul of theatre art.<br><br>
+              We deeply appreciate your support and commitment to our cultural heritage.<br><br>
+              With heartfelt thanks,<br>
+              <strong>The Theatre Revival Team</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

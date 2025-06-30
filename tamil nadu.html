@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terukkuttu - Tamil Nadu's Street Theatre</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #0a0a0a;
+      color: #ffffff;
+      scroll-behavior: smooth;
+    }
+
+    header {
+      background: linear-gradient(to right, #1a1a1a, #0d0d0d);
+      padding: 80px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 3.5rem;
+      color: #ffc107;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      color: #ccc;
+      max-width: 700px;
+      margin: 20px auto 0;
+    }
+
+    .flashcard-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      padding: 60px 40px;
+      justify-items: center;
+    }
+
+    .flashcard {
+      background-color: #1a1a1a;
+      width: 300px;
+      height: 380px;
+      perspective: 1000px;
+    }
+
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transform-style: preserve-3d;
+      transition: transform 0.8s ease;
+      box-shadow: 0 0 25px rgba(255, 193, 7, 0.1), 0 0 60px rgba(255, 193, 7, 0.05);
+    }
+
+    .flashcard:hover .card-inner {
+      transform: rotateY(180deg);
+      box-shadow: 0 0 30px rgba(255, 193, 7, 0.6), 0 0 80px rgba(255, 193, 7, 0.4);
+    }
+
+    .card-front,
+    .card-back {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 15px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .card-front {
+      background-color: #222;
+      color: #ffc107;
+      position: relative;
+    }
+
+    .card-front img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+    }
+
+    .card-front .label {
+      z-index: 2;
+      background-color: rgba(0, 0, 0, 0.6);
+      width: 100%;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .card-back {
+      background-color: #333;
+      color: #fff;
+      transform: rotateY(180deg);
+      padding: 20px;
+      font-size: 0.95rem;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header Section -->
+  <header>
+    <h1>Terukkuttu</h1>
+    <p class="intro-paragraph">
+      Terukkuttu, meaning “street theatre,” is a vibrant form of traditional Tamil drama performed in open spaces. It blends storytelling, dance, music, and dramatic dialogue, often revolving around episodes from the Mahabharata, especially the story of Draupadi. Terukkuttu is deeply rooted in Tamil Nadu’s rural culture and spiritual expression.
+    </p>
+  </header>
+
+  <!-- Flashcards Section -->
+  <div class="flashcard-container">
+
+    <!-- Card 1: Origin -->
+    <div class="flashcard">
+      <div class="card-inner">
+        <div class="card-front">
+          <img src="https://www.behindwoods.com/uploads/61ceb14f1d8f9.jpeg" alt="Origin" />
+          <div class="label">Origin</div>
+        </div>
+        <div class="card-back">
+          <p>Terukkuttu originated in Tamil Nadu as a folk theatre tradition to spread moral, spiritual, and social values through live performances in village streets and temple festivals.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2: Themes -->
+    <div class="flashcard">
+      <div class="card-inner">
+        <div class="card-front">
+          <img src="https://stagebuzz.in/wp-content/uploads/2021/05/1.jpg" alt="Themes" />
+          <div class="label">Themes</div>
+        </div>
+        <div class="card-back">
+          <p>Themes often center on episodes from the Mahabharata, especially the story of Draupadi, highlighting justice, honor, and dharma.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3: Performance -->
+    <div class="flashcard">
+      <div class="card-inner">
+        <div class="card-front">
+          <img src="https://i.ytimg.com/vi/uNtQ9r2oIA0/hqdefault.jpg" alt="Performance" />
+          <div class="label">Performance</div>
+        </div>
+        <div class="card-back">
+          <p>Terukkuttu is performed overnight in open areas with elaborate costumes, expressive gestures, Tamil songs, and strong dramatic narration.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4: Music & Instruments -->
+    <div class="flashcard">
+      <div class="card-inner">
+        <div class="card-front">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Dharumar_%40Therukkuthu.jpg/1200px-Dharumar_%40Therukkuthu.jpg" alt="Instruments" />
+          <div class="label">Instruments</div>
+        </div>
+        <div class="card-back">
+          <p>Musical instruments like harmonium, mridangam, and cymbals are used to accompany songs and heighten dramatic moments.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 5: Costume -->
+    <div class="flashcard">
+      <div class="card-inner">
+        <div class="card-front">
+          <img src="https://lh3.googleusercontent.com/0-PkSAUIKE96OqqovWTDOqBt39iBXmxYWdqx3YLnpJBIATHO8rdfrdVPXp-ndBhNVudGBWEpul5bhL5-uIDze4k=s900" alt="Costume" />
+          <div class="label">Costume</div>
+        </div>
+        <div class="card-back">
+          <p>Performers wear bright makeup, headgear, and traditional attire that reflect the character they portray, often with symbolic face paint.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 6: Cultural Role -->
+    <div class="flashcard">
+      <div class="card-inner">
+        <div class="card-front">
+          <img src="https://www.gosahin.com/go/p/i/t/1564308607_terukkuttu-dance.jpg" alt="Cultural Role" />
+          <div class="label">Cultural Role</div>
+        </div>
+        <div class="card-back">
+          <p>Terukkuttu plays a key role in preserving Tamil oral literature, transmitting epics and values to rural audiences, especially during festivals.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You Letter</title>
+    <style>
+      :root {
+        --primary: #fff;
+        --bg-color: black;
+        --bg-envelope-color: transparent;
+        --envelope-tab: #ecdeb8;
+        --envelope-cover: #e6cfa7;
+        --shadow-color: rgba(0, 0, 0, 0.2);
+        --txt-color: #000;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        background: var(--bg-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Brush Script MT', cursive;
+      }
+      .container {
+        height: 100vh;
+        display: grid;
+        place-items: center;
+      }
+      .envelope-wrapper {
+        position: relative;
+      }
+      .envelope {
+        position: relative;
+        width: 300px;
+        height: 230px;
+        overflow: hidden;
+        background-color: var(--bg-envelope-color);
+        box-shadow: 0 0 40px var(--shadow-color);
+        transition: opacity 0.5s ease;
+      }
+      .envelope::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        z-index: 2;
+        border-top: 130px solid var(--envelope-tab);
+        border-right: 150px solid transparent;
+        border-left: 150px solid transparent;
+        transform-origin: top;
+        transition: all 0.5s ease-in-out 0.7s;
+        box-shadow: 0 -2px 0 black inset;
+      }
+      .envelope::after {
+        content: "";
+        position: absolute;
+        z-index: 2;
+        width: 0px;
+        height: 0px;
+        border-top: 130px solid transparent;
+        border-right: 150px solid var(--envelope-cover);
+        border-bottom: 100px solid var(--envelope-cover);
+        border-left: 150px solid var(--envelope-cover);
+        box-shadow: 0 0 0 2px black;
+      }
+      .letter {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: -100%;
+        width: 320px;
+        height: 400px;
+        background: var(--primary);
+        text-align: center;
+        box-shadow: 0 0 5px var(--shadow-color);
+        padding: 30px 20px;
+        z-index: 3;
+        transition: bottom 1s ease-in-out;
+        display: none;
+      }
+      .letter.show {
+        display: block;
+        bottom: 150%;
+      }
+      .letter > .text {
+        color: var(--txt-color);
+        text-align: left;
+        font-size: 18px;
+        line-height: 1.6;
+      }
+      .text strong {
+        font-size: 22px;
+        display: block;
+        margin-bottom: 10px;
+      }
+    </style>
+</head>
+<body>
+  <div class="container">
+    <div class="envelope-wrapper">
+      <div class="envelope"></div>
+      <div class="letter" id="letter">
+        <div class="text">
+          <strong>Dear Patron,</strong>
+          <p>
+            Your valuable contribution has played a crucial role in reviving and preserving the soul of theatre art.
+            We deeply appreciate your support and commitment to our cultural heritage.
+            With heartfelt thanks,
+            <br>
+            <strong>The Theatre Revival Team</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const wrapper = document.querySelector('.envelope-wrapper');
+    const envelope = document.querySelector('.envelope');
+    const letter = document.getElementById('letter');
+
+    wrapper.addEventListener('click', (e) => {
+      if (!letter.classList.contains('show')) {
+        envelope.style.opacity = '0';
+        letter.classList.add('show');
+      } else if (e.target.closest('.letter')) {
+        letter.classList.remove('show');
+        setTimeout(() => {
+          envelope.style.opacity = '1';
+        }, 500);
+      }
+    });
+  </script>
+</body>
+</html>

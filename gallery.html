@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Rotating Carousel Gallery</title>
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+        font-family: sans-serif;
+      }
+      #info {
+        position: absolute;
+        top: 10px;
+        width: 100%;
+        text-align: center;
+        color: white;
+        font-family: sans-serif;
+        z-index: 10;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="info"><h2>🎝 Theatre Poster Carousel</h2></div>
+
+    <a-scene background="color: #1e1e2f">
+      <!-- Camera -->
+      <a-entity camera position="0 1.6 14" look-controls wasd-controls-enabled="false"></a-entity>
+
+      <!-- Lights -->
+      <a-entity light="type: ambient; intensity: 1"></a-entity>
+      <a-entity light="type: directional; intensity: 0.5" position="1 1 1"></a-entity>
+
+      <!-- Carousel -->
+      <a-entity id="carousel" rotation="0 0 0"
+                animation="property: rotation; to: 0 360 0; loop: true; dur: 30000; easing: linear">
+      </a-entity>
+
+      <!-- Ground -->
+      <a-plane rotation="-90 0 0" width="30" height="30" color="#2b2b3c"></a-plane>
+    </a-scene>
+
+    <script>
+      const posterData = [
+        "https://th-i.thgim.com/public/news/national/andhra-pradesh/x13dlp/article29128160.ece/alternates/FREE_1200/19VJPAGEBURRAKATHA",
+        "https://tripexploretravel.files.wordpress.com/2021/01/yak-chaam-dance.jpg?w=640",
+        "https://upload.wikimedia.org/wikipedia/commons/c/c2/BhaonaActing.jpg",
+        "https://www.lifestylefun.net/wp-content/uploads/2022/06/folk-dance-of-bihar.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/0/06/Tijan_Bai_1.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Tiatr%2C_a_popular_Konkani_folk_theatre_from_from_Goa_17.jpg/300px-Tiatr%2C_a_popular_Konkani_folk_theatre_from_from_Goa_17.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/9/90/Bhavai_Gujrat_%282%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/en/3/36/Swang_%27Raja_Vikramaditya%27_in_Mandi_House_SRC_New_Delhi.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/0/0b/Kinnauri_Nati_dance.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Chhau_Nritya_%281%29.jpg/1200px-Chhau_Nritya_%281%29.jpg",
+        "https://karnatakatourism.org/wp-content/uploads/2020/05/Yakshagana-2.jpg",
+        "https://mapacademy.io/wp-content/uploads/2023/04/bhand-pather-1m.jpg",
+        "https://virali.files.wordpress.com/2008/07/ktt-thorana.jpg",
+        "https://static.toiimg.com/thumb/msid-71842783,width-1280,height-720,resizemode-4/71842783.jpg",
+        "https://mapacademy.io/wp-content/uploads/2022/10/tamasha-3l.jpg",
+        "https://www.kumhei.com/images/2016/user/s/BGMpeHNqh2.jpg",
+        "https://www.desicomments.com/wp-content/uploads/2017/05/Doregata-Dance-Festival-Celebrating.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Mizoram_Bango_Nirtya_performed_at_the_44th_India_International_Film_Festival_of_India_%28IFFI-2013%29%2C_in_Panaji%2C_Goa_on_November_26%2C_2013.jpg/1200px-Mizoram_Bango_Nirtya_performed_at_the_44th_India_International_Film_Festival_of_India_%28IFFI-2013%29%2C_in_Panaji%2C_Goa_on_November_26%2C_2013.jpg",
+        "https://swaraanjalifinearts.files.wordpress.com/2014/01/nagaland-2.jpg",
+        "https://www.odisha.plus/wp-content/uploads/2020/02/Odissi_group_performance-1024x683.jpg",
+        "https://qph.cf2.quoracdn.net/main-qimg-ab2544a645a5a476a8cee3082420da46-pjlq",
+        "https://new-img.patrika.com/upload/2018/03/26/01_11.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/a/a2/ChamDance.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Kovalan_%28cropped%29.jpg/800px-Kovalan_%28cropped%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Oggu_Katha_-_Folk_Dance_Of_Telangana_-_Wikiconference_India_2023_-_Hyderabad_2023-04-28_8147.jpg/1365px-Oggu_Katha_-_Folk_Dance_Of_Telangana_-_Wikiconference_India_2023_-_Hyderabad_2023-04-28_8147.jpg",
+        "https://thenortheasttoday.com/static/c1e/client/86477/migrated/6d509af9625a3fb58eee594d3b9e175c.jpg",
+        "https://ignca.gov.in/ICH/ich_photos/ich00030/images/Nautanki-6.jpg",
+        "https://images.news18.com/ibnkhabar/uploads/2022/12/Ramman-Festival.jpg",
+        "https://www.financialexpress.com/wp-content/uploads/2021/03/yakshgana.jpg"
+      ];
+
+      const carousel = document.getElementById("carousel");
+      const radius = 10; // increased radius to reduce overlap
+      const yPos = 1.6;
+      const cardWidth = 1.3;
+      const cardHeight = 2;
+      const count = posterData.length;
+
+      for (let i = 0; i < count; i++) {
+        const angle = (i / count) * 2 * Math.PI;
+        const x = radius * Math.sin(angle);
+        const z = radius * Math.cos(angle);
+        const rotationY = -(angle * 180 / Math.PI);
+
+        const el = document.createElement("a-plane");
+        el.setAttribute("src", posterData[i]);
+        el.setAttribute("height", cardHeight);
+        el.setAttribute("width", cardWidth);
+        el.setAttribute("position", `${x.toFixed(2)} ${yPos} ${z.toFixed(2)}`);
+        el.setAttribute("rotation", `0 ${rotationY.toFixed(2)} 0`);
+        el.setAttribute("material", "shader: flat; transparent: true");
+
+        carousel.appendChild(el);
+      }
+    </script>
+  </body>
+</html>
